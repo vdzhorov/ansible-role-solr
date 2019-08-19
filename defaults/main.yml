@@ -1,0 +1,4 @@
+---
+
+# Avaible Apache SOLR versions can be checked here: https://archive.apache.org/dist/lucene/solr/
+solr_version: '4.10.2'
