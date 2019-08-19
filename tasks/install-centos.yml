@@ -23,6 +23,18 @@
     remote_src: yes
   when: not solr_installed.stat.exists
 
+- name: Create SOLR group
+  group:
+    name: solr
+
+- name: Create SOLR user
+  user:
+    name: solr
+    group: solr
+    home: /opt/solr-{{ solr_version }}
+    shell: /sbin/nologin # User is required to have valid shell in order to start the service
+    create_home: no
+
 - name: Set up init.d script
   template:
     src: solr.init.j2
