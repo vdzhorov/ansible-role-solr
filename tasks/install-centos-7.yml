@@ -1,0 +1,17 @@
+---
+
+- name: Install lsof since it is a prerequisite
+  yum:
+    name: lsof
+    state: installed
+
+- name: Download Apache SOLR package
+  get_url:
+    url: https://archive.apache.org/dist/lucene/solr/{{ solr_version }}/solr-{{ solr_version }}.tgz
+    dest: /usr/local/src/
+
+- name: Unarchive Apache SOLR package
+  unarchive:
+    src: /usr/local/src/solr-{{ solr_version }}.tgz
+    dest: /opt/
+    remote_src: yes
