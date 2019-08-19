@@ -5,13 +5,20 @@
     name: lsof
     state: installed
 
+- name: Check if Apache SOLR has been already installed
+  stat:
+    path: /opt/solr-{{ solr_version }}
+  register: solr_installed
+
 - name: Download Apache SOLR package
   get_url:
     url: https://archive.apache.org/dist/lucene/solr/{{ solr_version }}/solr-{{ solr_version }}.tgz
     dest: /usr/local/src/
+  when: not solr_installed.stat.exists
 
 - name: Unarchive Apache SOLR package
   unarchive:
     src: /usr/local/src/solr-{{ solr_version }}.tgz
     dest: /opt/
     remote_src: yes
+  when: not solr_installed.stat.exists
